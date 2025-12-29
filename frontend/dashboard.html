@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard – PlagX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="dashboard.css" />
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbvVgUW6H3sJBY3Sng7JSCzyBFN1PxrnQ",
+      authDomain: "login-98c26.firebaseapp.com",
+      projectId: "login-98c26",
+      storageBucket: "login-98c26.firebasestorage.app",
+      messagingSenderId: "199892612420",
+      appId: "1:199892612420:web:db0aeb5bd145f335955311"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) window.location.href = "/login.html";
+    });
+  </script>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="brand">
+    <img src="logo.png" />
+    <h2>PlagX</h2>
+  </div>
+
+  <a class="active">Dashboard</a>
+
+  <!-- CREDITS -->
+  <a id="creditItem">Credits: --</a>
+
+  <a onclick="redirectToPurchase()">Purchase / Plans</a>
+
+  <!-- MY ACCOUNT -->
+  <a onclick="openAccount()">My Account</a>
+
+  <div class="logout-box">
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <header>
+    <h1>Welcome to Your Dashboard</h1>
+    <button
+      class="discord-btn"
+      onclick="window.open('https://discord.gg/YOUR_LINK')">
+      Join Discord
+    </button>
+  </header>
+
+  <!-- UPLOAD -->
+  <section class="upload-section">
+    <h2>Upload Document</h2>
+    <p>Supported: PDF, DOCX, TXT</p>
+
+    <form id="uploadForm">
+      <input type="file" id="fileInput" />
+      <button class="upload-btn" type="submit">Upload →</button>
+    </form>
+  </section>
+
+  <!-- REPORTS -->
+ <!-- REPORTS -->
+<section class="results-section">
+  <h2>Your Recent Reports</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Document</th>
+          <th>AI</th>
+          <th>Plagiarism</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <!-- JS will inject rows here -->
+      <tbody id="reportTable"></tbody>
+    </table>
+  </div>
+</section>
+
+</div>
+
+<!-- ================= LEFT-SIDE MY ACCOUNT PANEL ================= -->
+<div id="accountPanel" class="account-panel">
+  <div class="account-header">
+    <h2>My Account</h2>
+    <span class="close-btn" onclick="closeAccount()">×</span>
+  </div>
+
+  <div class="account-content">
+    <p>
+      <strong>Email</strong><br />
+      <span id="accEmail">—</span>
+    </p>
+
+    <p>
+      <strong>Credits</strong><br />
+      <span id="accCredits">—</span>
+    </p>
+
+    <br />
+
+    <button
+      class="danger-btn"
+      onclick="deleteAccount()">
+      Delete My Account
+    </button>
+  </div>
+</div>
+
+<script type="module" src="dashboard.js"></script>
+</body>
+</html>
